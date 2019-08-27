@@ -7,17 +7,26 @@ const InsuranceProviderSchema = new mongoose.Schema({
         required: true
     },
 
-    type: {
+    insurer_type: {
         type: String,
-        enum: ['Organization', 'Third Party'],
+        enum: ['Organization', 'ThirdParty'],
         required: true
     },
 
-    phone: {
+    phone_number: {
         type: String,
         required: true
-    }
+    },
 
+    email: {
+        type: String,
+        required: true
+    },
+
+    logo_url: {
+        type: String,
+        required: false
+    }
 
 });
 

@@ -67,6 +67,7 @@ db.once('open', function() {
                     answers['password']
                 )) {
                     answers.admin = true;
+                    answers.role = 'admin'
                     const user = new User(answers);
                     user.save()
                     .then(user => {

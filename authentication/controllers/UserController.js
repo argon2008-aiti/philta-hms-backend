@@ -52,6 +52,8 @@ const loginUser = function(request, h) {
     }
     const responseObject = {}
     responseObject.token = createToken(request.pre.login.user);
+    responseObject.user = request.pre.login.user;
+    
     return h.response(responseObject);
 }
 

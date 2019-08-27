@@ -13,6 +13,12 @@ const PatientSchema = new mongoose.Schema({
         required: true
     },
 
+/*
+    patient_id: {
+        type: String,
+        required: false,
+    },*/
+
     date_of_birth: {
         type: Date,
         required: true,
@@ -53,24 +59,16 @@ const PatientSchema = new mongoose.Schema({
         default: Date.now()
     },
 
-    /*insurance_cover: {
-        type: String,
-        enum: ['None', 'Organization', 'Third Party'],
-        required: true
-    },
-
-    insurance_provider: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'InsuranceProvider'
-    },*/
 
     insurance_policy : {
+
         scheme : {
             type: String,
             enum: ['None', 'Organization', 'Third Party'],
             required: true,
 	    default: 'None'
         }, 
+
         provider: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'InsuranceProvider',
@@ -78,12 +76,14 @@ const PatientSchema = new mongoose.Schema({
                 return this.insurance_policy.scheme !== 'None';
             }
         },
+
         policy_number: {
             type: String,
             required: function() {
                 return this.insurance_policy.scheme !== 'None';
             }
         },
+
         maximum_cover: {
             type: Number,
             default: 0
@@ -105,6 +105,12 @@ const PatientSchema = new mongoose.Schema({
 
 PatientSchema.virtual('full_name').get(function(){
      return this.first_name + " " + this.family_name
+});
+
+
+PatientSchema.virtual('patient_id').get(function(){
+     return this.id.slice(-4) + '/' +
+        this.created_at.getFullYear().toString().slice(-2);
 });
 
 module.exports = mongoose.model('Patient', PatientSchema);

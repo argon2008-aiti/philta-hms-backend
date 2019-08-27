@@ -1,32 +1,32 @@
 {
-  "name": "philta_eye_care",
-  "version": "1.0.0",
-  "description": "backend of patient management system for philta eye care",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon server.js",
-    "dbsu": "node superUserConfig.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "argon",
-  "license": "ISC",
-  "dependencies": {
-    "aguid": "^2.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "bcrypt": "^3.0.4",
-    "boom": "^7.3.0",
-    "dev": "^0.1.3",
-    "hapi": "^17.8.1",
-    "hapi-auth-jwt2": "^8.3.0",
-    "hapi-cors": "^1.0.3",
-    "inert": "^5.1.2",
-    "inquirer": "^6.2.2",
-    "jsonwebtoken": "^8.5.0",
-    "mongoose": "^5.4.15",
-    "nodemon": "^1.18.9",
-    "redis": "^2.8.0"
-  }
+    "name": "philta_eye_care",
+    "version": "1.0.0",
+    "description": "backend of patient management system for philta eye care",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon server.js",
+        "dbsu": "node superUserConfig.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "argon",
+    "license": "ISC",
+    "dependencies": {
+        "aguid": "^2.0.0",
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-es2015": "^6.24.1",
+        "bcrypt": "^3.0.6",
+        "boom": "^7.3.0",
+        "dev": "^0.1.3",
+        "hapi": "^17.8.1",
+        "hapi-auth-jwt2": "^8.3.0",
+        "hapi-cors": "^1.0.3",
+        "inert": "^5.1.2",
+        "inquirer": "^6.2.2",
+        "jsonwebtoken": "^8.5.0",
+        "mongoose": "^5.4.15",
+        "nodemon": "^1.18.9",
+        "redis": "^2.8.0"
+    }
 }
