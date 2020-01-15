@@ -1,15 +1,32 @@
 const InsuranceProvider = require('../models/InsuranceProvider');
+const fs = require('fs');
 
 const addProvider = async (request, h) => {
+    console.log(request.payload);
     const provider = new InsuranceProvider(request.payload);
-    return await provider.save()
+    const filename = request.payload.logo.hapi.filename;
+    const data = request.payload.logo._data;
+    const file_path = "./uploaded_files/" + filename;
+
+    provider.logo_url = filename;
+
+    await fs.writeFile(file_path, data, (err) => {
+        if(err) throw err;
+        
+        return provider.save()
                  .then((provider) => {
                      return provider.company_name + " saved";
                  })
                  .catch((error) => {
                      console.log(error);
                      return error._message;
-                 })
+              })
+    
+    });
+
+    return provider;
+        
+
 }
 
 

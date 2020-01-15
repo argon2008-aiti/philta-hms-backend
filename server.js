@@ -6,13 +6,15 @@ const mongoose = require('mongoose');
 const authRoutes = require('./authentication/controllers/routes');
 const patientRoutes = require('./patient_records/controllers/routes');
 const insuranceProviderRoutes = require('./insurance_providers/controllers/routes');
-const {secret}   = require('./authentication/utils/encryption');
-const {validate} = require('./authentication/controllers/UserController');
+const queueRoutes = require('./consultations/controllers/routes');
+const { secret } = require('./authentication/utils/encryption');
+const { validate } = require('./authentication/controllers/UserController');
 
 
 mongoose.connect('mongodb://localhost/philta', {
     useNewUrlParser: true,
     useFindAndModify: false,
+    useCreateIndex: true
 });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -27,20 +29,20 @@ const server = Hapi.server({
 });
 
 
-const init = async () => {
+const init = async() => {
     await server.register(require('inert'));
     await server.register(require('hapi-auth-jwt2'));
     await server.register({
-	    plugin: require('hapi-cors'),
-	    options: {
-	       methods: ['POST, GET, DELETE, PUT']
-	    }
+        plugin: require('hapi-cors'),
+        options: {
+            methods: ['POST, GET, DELETE, PUT']
+        }
     });
 
     server.auth.strategy('jwt', 'jwt', {
-                key: secret,
-                validate: validate,
-                verifyOptions: { algorithms: ['HS256'] }
+        key: secret,
+        validate: validate,
+        verifyOptions: { algorithms: ['HS256'] }
     });
 
     server.auth.default('jwt');
@@ -51,6 +53,7 @@ const init = async () => {
     server.route(authRoutes);
     server.route(patientRoutes);
     server.route(insuranceProviderRoutes);
+    server.route(queueRoutes);
 
     await server.start();
     console.log('Server running at: ' + server.info.uri);

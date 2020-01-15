@@ -1,10 +1,27 @@
-const {addProvider, getProvider, editProvider, removeProvider} = require('./InsuranceProviderController');
+const { addProvider, getProvider, editProvider, removeProvider } = require('./InsuranceProviderController');
 
-module.exports = [
+module.exports = [{
+        method: 'GET',
+        path: '/upload/{file*}',
+        options: {
+            auth: false
+        },
+        handler: {
+            directory: {
+                path: 'uploaded_files'
+            }
+        }
+    },
     {
         method: 'POST',
         path: '/provider',
         options: {
+            payload: {
+                output: "stream",
+                allow: 'multipart/form-data',
+                parse: true,
+                maxBytes: 2 * 1000 * 1000
+            },
         },
         handler: addProvider
     },
@@ -12,24 +29,21 @@ module.exports = [
     {
         method: 'GET',
         path: '/provider',
-        options: {
-        },
+        options: {},
         handler: getProvider
     },
 
     {
         method: 'PUT',
         path: '/provider',
-        options: {
-        },
-        handler:  editProvider
+        options: {},
+        handler: editProvider
     },
 
     {
         method: 'DELETE',
         path: '/provider',
-        options: {
-        },
+        options: {},
         handler: removeProvider
     },
 ]

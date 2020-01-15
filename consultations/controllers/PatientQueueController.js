@@ -1,10 +1,12 @@
-const PatientModel = require('../models/Patient');
+const PatientQueueModel = require('../models/PatientQueue');
+const PatientModel = require('../../patient_records/models/Patient')
 
 const addPatient = async(request, h) => {
-    const patient = new PatientModel(request.payload);
+    console.log(request.payload);
+    const patient = new PatientQueueModel(request.payload);
     return await patient.save()
         .then((pat) => {
-            return pat.populate('patient');
+            return pat;
         })
         .catch((error) => {
             console.log(error);
@@ -16,7 +18,7 @@ const addPatient = async(request, h) => {
 const getPatient = async(request, h) => {
     const patientId = request.query.id;
     if (patientId) {
-        return await PatientModel.findById(patientId).populate('insurance_policy.provider')
+        return await PatientQueueModel.findById(patientId).populate('patient')
             .then((patient) => {
                 return patient;
             })
@@ -25,7 +27,7 @@ const getPatient = async(request, h) => {
             })
 
     }
-    return await PatientModel.find({}).populate('insurance_policy.provider')
+    return await PatientQueueModel.find({}).populate('patient')
         .then((patients) => {
             return patients;
         })
@@ -39,9 +41,9 @@ const editPatient = async(request, h) => {
     const patientId = request.payload.id;
     console.log(request.payload.id);
     if (patientId) {
-        return await PatientModel.findByIdAndUpdate(
+        return await PatientQueueModel.findByIdAndUpdate(
                 patientId, request.payload, { new: true }
-            ).populate('insurance_policy.provider')
+            )
             .then((patient) => {
                 return patient;
             }).catch((error) => {
@@ -56,7 +58,7 @@ const removePatient = async(request, h) => {
     const patientId = request.query.id;
     console.log(patientId);
     if (patientId) {
-        return await PatientModel.findByIdAndDelete(patientId)
+        return await PatientQueueModel.findByIdAndDelete(patientId)
             .then((patient) => {
                 return patient;
             })

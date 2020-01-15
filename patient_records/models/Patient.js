@@ -62,32 +62,33 @@ const PatientSchema = new mongoose.Schema({
 
     insurance_policy : {
 
-        scheme : {
-            type: String,
-            enum: ['None', 'Organization', 'Third Party'],
-            required: true,
-	    default: 'None'
-        }, 
-
         provider: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'InsuranceProvider',
-            required: function() {
-                return this.insurance_policy.scheme !== 'None';
-            }
+            required: false,
         },
 
         policy_number: {
             type: String,
-            required: function() {
-                return this.insurance_policy.scheme !== 'None';
-            }
+            required: false,
         },
 
         maximum_cover: {
             type: Number,
-            default: 0
-        }
+            default: 0,
+            required: false,
+        },
+
+        policy_start: {
+            type: Date,
+            required: false,
+        },
+
+        policy_end: {
+            type: Date,
+            required: false,
+        },
+
     }
 },
 
