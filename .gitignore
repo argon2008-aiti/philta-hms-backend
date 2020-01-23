@@ -1,2 +1,6 @@
 #Ignore insurance company logo folder
 uploaded_files/
+package-lock.json
+
+#ignore node modules
+node_modules

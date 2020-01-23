@@ -6,8 +6,8 @@ const addReport = async(request, h) => {
     console.log(request.payload);
     const report = new MedicalReportModel(request.payload);
     return await report.save()
-        .then((report) => {
-            return report;
+        .then(async(report) => {
+            return await MedicalReportModel.findById(report._id).populate('patient')
         })
         .catch((error) => {
             console.log(error);
