@@ -3,4 +3,4 @@ uploaded_files/
 package-lock.json
 
 #ignore node modules
-node_modules
+node_modules/

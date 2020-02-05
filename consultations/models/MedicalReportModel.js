@@ -86,14 +86,14 @@ const MedicalReportSchema = new mongoose.Schema({
 
         /** UNAIDED SNELLEN ***/
         snellen_test_unaided: {
-            tested: { type: Boolean, default: true },
+            tested: { type: Boolean, default: false },
             right_eye: String,
             left_eye: String,
         },
 
         /** AIDED SNELLEN ***/
         snellen_test_aided: {
-            tested: { type: Boolean, default: true },
+            tested: { type: Boolean, default: false },
             right_eye: String,
             left_eye: String,
         },
@@ -198,18 +198,18 @@ const MedicalReportSchema = new mongoose.Schema({
         /** Confrontational Visual Fields */
         visual_fields_right: {
             tested: { type: Boolean, default: false },
-            q1: Number,
-            q2: Number,
-            q3: Number,
-            q4: Number,
+            q1: String,
+            q2: String,
+            q3: String,
+            q4: String,
         },
 
         visual_fields_left: {
             tested: { type: Boolean, default: false },
-            q1: Number,
-            q2: Number,
-            q3: Number,
-            q4: Number,
+            q1: String,
+            q2: String,
+            q3: String,
+            q4: String,
         },
 
         /** End of Visual Fields */
@@ -233,6 +233,32 @@ const MedicalReportSchema = new mongoose.Schema({
         }],
 
         /** */
+
+        /** Physician's Assessment */
+        assessment: {
+            type: String,
+            required: false
+        },
+
+        /** */
+        /** Physician's Plan*/
+        plan: {
+            type: String,
+            required: false
+        },
+
+        /** */
+
+        review_date: {
+            type: Date,
+            required: false
+        },
+
+
+        prescription: [{
+            type: String,
+            required: false
+        }],
     },
 
     {

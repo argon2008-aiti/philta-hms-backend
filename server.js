@@ -28,6 +28,23 @@ const server = Hapi.server({
     host: 'localhost'
 });
 
+const io = require('socket.io')(server.listener);
+
+io.on('connection', function(socket) {
+
+    console.log("connection received to socket io");
+    socket.on('Patient Added to Queue', function(patient) {
+        console.log("New See Doctor Request " + patient);
+        socket.broadcast.emit('AddPatientToQueue', patient);
+    });
+
+    socket.on('Remove Patient From Queue', function(id) {
+        console.log("Delete Queue Request -- " + id);
+        socket.broadcast.emit('RemovePatientFromQueue', id);
+    });
+
+});
+
 
 const init = async() => {
     await server.register(require('inert'));

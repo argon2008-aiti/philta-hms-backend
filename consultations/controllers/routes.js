@@ -1,6 +1,6 @@
 const { addPatient, getPatient, editPatient, removePatient } = require('./PatientQueueController');
 const { addReport, getReport, editReport, removeReport } = require('./MedicalReportController');
-const { addDocument } = require('./MedicalReportController');
+const { addDocument, getDocument } = require('./MedicalReportController');
 
 module.exports = [{
         method: 'POST',
@@ -33,6 +33,17 @@ module.exports = [{
             }
         },
         handler: addDocument
+    },
+
+    {
+        method: 'GET',
+        path: '/document',
+        options: {
+            auth: {
+                mode: "required",
+            }
+        },
+        handler: getDocument
     },
 
     {

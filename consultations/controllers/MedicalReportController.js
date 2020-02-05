@@ -1,6 +1,6 @@
 const MedicalReportModel = require('../models/MedicalReportModel');
 const DiagnosticDocumentModel = require('../models/DiagnosticDocumentModel');
-const fs = require('fs');
+const fs = require('fs-path');
 
 const addReport = async(request, h) => {
     console.log(request.payload);
@@ -39,6 +39,21 @@ const addDocument = async(request, h) => {
     });
 
     return diagnostics;
+}
+
+const getDocument = async(request, h) => {
+    const reportId = request.query.id;
+    if (reportId) {
+        return await DiagnosticDocumentModel.findById(reportId)
+            .then((rep) => {
+                return rep;
+                console.log(rep);
+            })
+            .catch((error) => {
+                return error._message;
+            })
+
+    }
 }
 
 
@@ -104,5 +119,6 @@ module.exports = {
     editReport: editReport,
     removeReport: removeReport,
 
-    addDocument: addDocument
+    addDocument: addDocument,
+    getDocument: getDocument,
 }

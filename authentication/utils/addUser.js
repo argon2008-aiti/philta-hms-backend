@@ -19,7 +19,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log('successfully connected to db');
-    const bcrypt = require('bcrypt');
+    const bcrypt = require('bcryptjs');
     const inquirer = require('inquirer');
     const { hashPassword } = require('./encryption')
     inquirer.prompt([{
