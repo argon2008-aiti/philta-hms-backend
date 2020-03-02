@@ -1,4 +1,5 @@
 const InsuranceProvider = require('../models/InsuranceProvider');
+const InsuranceClaim = require('../models/InsuranceClaim');
 const fs = require('fs-path');
 
 const addProvider = async(request, h) => {
@@ -29,6 +30,33 @@ const addProvider = async(request, h) => {
 
 }
 
+const getClaim = async(request, h) => {
+    const claimId = request.query.id;
+    if (claimId) {
+        return await InsuranceClaim.findById(claimId)
+            .then((claim) => {
+                return claim.populate('patient')
+                    .populate('provider')
+                    .populate('bill')
+                    .execPopulate()
+            })
+            .catch((error) => {
+                return error._message;
+            })
+
+    }
+    return await InsuranceClaim.find({}).sort({ created_at: -1 })
+        .populate('patient')
+        .populate('provider')
+        .populate('bill')
+        .then((claims) => {
+            return claims;
+        })
+        .catch((error) => {
+            return error._message;
+        })
+}
+
 
 const getProvider = async(request, h) => {
     const providerId = request.query.id;
@@ -49,6 +77,21 @@ const getProvider = async(request, h) => {
         .catch((error) => {
             return error._message;
         })
+}
+
+const editClaim = async(request, h) => {
+    const claimId = request.query.id;
+    if (claimId) {
+        return await InsuranceClaim.findOneAndUpdate(
+            claimId, request.payload
+        ).then((claim) => {
+            return "Update Successful";
+        }).catch((error) => {
+            return "Unable to Update Provider Information";
+        });
+    } else {
+        return "No Provider Specified to Update";
+    }
 }
 
 
@@ -88,5 +131,7 @@ module.exports = {
     addProvider: addProvider,
     getProvider: getProvider,
     editProvider: editProvider,
-    removeProvider: removeProvider
+    removeProvider: removeProvider,
+    getClaim: getClaim,
+    editClaim: editClaim,
 }

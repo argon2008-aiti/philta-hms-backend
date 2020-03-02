@@ -7,6 +7,7 @@ const authRoutes = require('./authentication/controllers/routes');
 const patientRoutes = require('./patient_records/controllers/routes');
 const insuranceProviderRoutes = require('./insurance_providers/controllers/routes');
 const queueRoutes = require('./consultations/controllers/routes');
+const billRoutes = require('./billings/controllers/routes');
 const { secret } = require('./authentication/utils/encryption');
 const { validate } = require('./authentication/controllers/UserController');
 
@@ -71,6 +72,7 @@ const init = async() => {
     server.route(patientRoutes);
     server.route(insuranceProviderRoutes);
     server.route(queueRoutes);
+    server.route(billRoutes);
 
     await server.start();
     console.log('Server running at: ' + server.info.uri);

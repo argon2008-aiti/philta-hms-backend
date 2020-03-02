@@ -1,4 +1,11 @@
-const { addProvider, getProvider, editProvider, removeProvider } = require('./InsuranceProviderController');
+const {
+    addProvider,
+    getProvider,
+    editProvider,
+    removeProvider,
+    getClaim,
+    editClaim,
+} = require('./InsuranceProviderController');
 
 module.exports = [{
         method: 'GET',
@@ -22,6 +29,9 @@ module.exports = [{
                 parse: true,
                 maxBytes: 2 * 1000 * 1000
             },
+            auth: {
+                mode: "required",
+            }
         },
         handler: addProvider
     },
@@ -29,21 +39,60 @@ module.exports = [{
     {
         method: 'GET',
         path: '/provider',
-        options: {},
+        options: {
+
+            auth: {
+                mode: "required",
+            }
+        },
         handler: getProvider
+    },
+
+    {
+        method: 'GET',
+        path: '/claim',
+        options: {
+
+            auth: {
+                mode: "required",
+            }
+        },
+        handler: getClaim
     },
 
     {
         method: 'PUT',
         path: '/provider',
-        options: {},
+        options: {
+
+            auth: {
+                mode: "required",
+            }
+        },
         handler: editProvider
+    },
+
+    {
+        method: 'PUT',
+        path: '/claim',
+        options: {
+
+            auth: {
+                mode: "required",
+            }
+        },
+        handler: editClaim
     },
 
     {
         method: 'DELETE',
         path: '/provider',
-        options: {},
+        options: {
+
+            auth: {
+                mode: "required",
+            }
+        },
         handler: removeProvider
     },
 ]

@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 const InsuranceProviderSchema = new mongoose.Schema({
@@ -9,7 +8,7 @@ const InsuranceProviderSchema = new mongoose.Schema({
 
     insurer_type: {
         type: String,
-        enum: ['Organization', 'ThirdParty'],
+        enum: ['Employer Sponsored', 'Organization'],
         required: true
     },
 
